@@ -15,7 +15,7 @@ public class DrawingPanel extends JPanel
 	private SpringLayout baseLayout;
 	private ShapePanel shapePanel;
 	private JButton drawRectangleButton;
-	private ArrayList<Rectangle> rectangleList;
+	
 	
 	
 	public DrawingPanel(Controller baseController)
@@ -23,9 +23,8 @@ public class DrawingPanel extends JPanel
 		this.baseController = baseController;
 		baseLayout = new SpringLayout();
 		drawRectangleButton = new JButton("Rectangle");
-		baseLayout.putConstraint(SpringLayout.SOUTH, drawRectangleButton, -26, SpringLayout.SOUTH, this);
-		baseLayout.putConstraint(SpringLayout.EAST, drawRectangleButton, -169, SpringLayout.EAST, this);
-		rectangleList = new ArrayList<Rectangle>();
+		shapePanel = new ShapePanel();
+
 		
 		setupPanel();
 		setupLayout();
@@ -37,11 +36,17 @@ public class DrawingPanel extends JPanel
 		this.setLayout(baseLayout);
 		this.setBackground(Color.GRAY);
 		this.add(drawRectangleButton);
+		this.add(shapePanel);
 	}
 	
 	private void setupLayout()
 	{
-		
+		baseLayout.putConstraint(SpringLayout.NORTH, shapePanel, 0, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, shapePanel, 0, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, shapePanel, -50, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, shapePanel, 0, SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, drawRectangleButton, -26, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.EAST, drawRectangleButton, -169, SpringLayout.EAST, this);
 	}
 	
 	private void setupListeners()
@@ -50,12 +55,14 @@ public class DrawingPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent click)
 			{
-				int xPosition = (int)(Math.random() * 800);
-				int yPosition = (int)(Math.random() * 800);
-				int width = (int)(Math.random() * 100);
-				int height = (int)(Math.random() * 150);
+
 				
-				rectangleList.add(new Rectangle(xPosition, yPosition, width, height));
+				shapePanel.addTriangle();
+				shapePanel.addSquare();	
+				shapePanel.addCircle();		
+				shapePanel.addEllipse();				
+				shapePanel.addPolygon();			
+				shapePanel.addRectangle();
 				repaint();
 			}
 		});
@@ -64,13 +71,14 @@ public class DrawingPanel extends JPanel
 		{
 			public void mouseDragged(MouseEvent moved)
 	          { 
-	        	  int xPosition = (int)(Math.random() * 800);
-					int yPosition = (int)(Math.random() * 800);
-					int width = (int)(Math.random() * 100);
-					int height = (int)(Math.random() * 150);
-					
-					rectangleList.add(new Rectangle(xPosition, yPosition, width, height));
-					repaint();
+				shapePanel.addTriangle();
+				shapePanel.addSquare();	
+				shapePanel.addCircle();		
+				shapePanel.addEllipse();				
+				shapePanel.addPolygon();			
+				shapePanel.addRectangle();
+				repaint();
+			
 	          }
 
 			public void mouseMoved(MouseEvent e) 
@@ -92,17 +100,7 @@ public class DrawingPanel extends JPanel
 		mainGraphics.setStroke(new BasicStroke(10));
 		mainGraphics.draw(new Rectangle(10,10,20,40));
 		
-		for(Rectangle current : rectangleList)
-		{
-			int randomStroke = (int)(Math.random() * 7);
-			int red = (int)(Math.random() * 256);
-			int blue = (int)(Math.random() * 256);
-			int green = (int)(Math.random() * 256);
-			mainGraphics.setColor(new Color(red, green, blue));
-			mainGraphics.setStroke(new BasicStroke(randomStroke));
-			
-			mainGraphics.fill(current);
-		}
+		
 	}
 	
 }
