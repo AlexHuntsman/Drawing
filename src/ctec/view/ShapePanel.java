@@ -16,20 +16,18 @@ import ctec.controller.Controller;
 
 public class ShapePanel extends JPanel
 {
-	private SpringLayout baseLayout;
 	private ArrayList<Ellipse2D> ellipseList;
 	private ArrayList<Ellipse2D> circleList;
 	private ArrayList<Rectangle> rectangleList;
 	private ArrayList<Rectangle> squareList;
 	private ArrayList<Polygon> polygonList;
 	private ArrayList<Polygon> triangleList;
-	private Controller baseController;
+	
 	
 	
 	public ShapePanel()
 	{
-		this.baseController = baseController;
-		baseLayout = new SpringLayout();
+		
 		rectangleList = new ArrayList<Rectangle>();
 		ellipseList = new ArrayList<Ellipse2D>();
 		circleList = new ArrayList<Ellipse2D>();
@@ -85,8 +83,8 @@ public class ShapePanel extends JPanel
 		int [] yPoints = new int [3];
 		xPoints[0] = (int)(Math.random() * 1000);
 		
-		xPoints = new int []{(int)(Math.random() * 1000), (int)(Math.random() * 1000), (int)(Math.random() * 1000)};
-		yPoints = new int []{(int)(Math.random() * 1000), (int)(Math.random() * 1000), (int)(Math.random() * 1000)};
+		xPoints = new int []{(int)(Math.random() * 800), (int)(Math.random() * 800), (int)(Math.random() * 800)};
+		yPoints = new int []{(int)(Math.random() * 800), (int)(Math.random() * 800), (int)(Math.random() * 800)};
 		
 		Polygon triangle = new Polygon(xPoints, yPoints, 3);
 		
@@ -152,7 +150,7 @@ public class ShapePanel extends JPanel
 			int pencilSize = (int)(Math.random() * 15);
 			mainGraphics.setColor(new Color(red, green, blue));
 			mainGraphics.setStroke(new BasicStroke(pencilSize));
-			mainGraphics.fill(ellipse);
+			mainGraphics.draw(ellipse);
 		}
 		
 		for(Ellipse2D ellipse : circleList)
